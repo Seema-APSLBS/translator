@@ -1,5 +1,5 @@
 import streamlit as st
-from deep-translator import GoogleTranslator
+from deep_translator import GoogleTranslator
 
 st.title("🌍 Multi-Language Translation Tool")
 
@@ -25,4 +25,5 @@ if st.button("Translate"):
         for lang in selected_languages:
             translated = GoogleTranslator(source="auto", target=lang).translate(input_text)
             st.write(f"**{lang}**: {translated}")
+
 
