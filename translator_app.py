@@ -1,41 +1,27 @@
 import streamlit as st
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
-# Initialize translator
-translator = Translator()
-
-# Streamlit app layout
 st.title("🌍 Multi-Language Translation Tool")
 
 # Input text
 input_text = st.text_area("Enter text to translate:", "")
 
-# Language selection (ISO codes)
-available_languages = {
-    "Spanish": "es",
-    "French": "fr",
-    "German": "de",
-    "Hindi": "hi",
-    "Chinese (Simplified)": "zh-cn",
-    "Arabic": "ar",
-    "Russian": "ru",
-    "Japanese": "ja",
-    "Portuguese": "pt"
-}
+# Language selection
+available_languages = [
+    "es", "fr", "de", "hi", "zh-cn", "ar", "ru", "ja", "pt"
+]
 
 selected_languages = st.multiselect(
     "Select target languages:",
-    options=list(available_languages.keys()),
-    default=["Spanish", "French", "German"]
+    options=available_languages,
+    default=["es", "fr", "de"]
 )
 
-# Translate button
 if st.button("Translate"):
     if input_text.strip() == "":
         st.warning("Please enter some text to translate.")
     else:
         st.subheader("Translations:")
         for lang in selected_languages:
-            lang_code = available_languages[lang]
-            translated = translator.translate(input_text, dest=lang_code)
-            st.write(f"**{lang}**: {translated.text}")
+            translated = GoogleTranslator(source="auto", target=lang).translate(input_text)
+            st.write(f"**{lang}**: {translated}")
